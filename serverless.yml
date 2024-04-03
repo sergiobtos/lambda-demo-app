@@ -1,0 +1,16 @@
+org: sergiobtos
+app: lambda-demo-app
+service: lambda-demo-app
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: src/hello.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
