@@ -32,6 +32,12 @@ functions:
       - httpApi:
           path: /todo/{id}
           method: get
+  updateTodo:
+    handler: src/updateTodo.handler
+    events:
+      - httpApi:
+          path: /todo/{id}
+          method: put
 
 resources:
   Resources:
