@@ -6,13 +6,31 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs18.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:533267242099:table/TodoTable
 
 functions:
-  api:
-    handler: src/hello.handler
+  addTodo:
+    handler: src/addTodo.handler
     events:
       - httpApi:
           path: /
+          method: post
+  fetchTodos:
+    handler: src/fetchTodos.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: get
+  fetchTodo:
+    handler: src/fetchTodo.handler
+    events:
+      - httpApi:
+          path: /todo/{id}
           method: get
 
 resources:
