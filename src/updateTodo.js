@@ -1,12 +1,10 @@
 const AWS = require("aws-sdk");
-const middy = require("@middy/core");
-const bodyParser = require("@middy/http-json-body-parser");
 
 const updateTodo = async (event) => {
   const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
   const { id } = event.pathParameters;
-  const { completed } = event.body;
+  const { completed } = JSON.parse(event.body);
 
   await dynamoDB
     .update({
@@ -28,5 +26,5 @@ const updateTodo = async (event) => {
 };
 
 module.exports = {
-  handler: middy(updateTodo).use(bodyParser()),
+  handler: updateTodo,
 };
